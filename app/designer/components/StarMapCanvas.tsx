@@ -33,16 +33,30 @@ export default function StarMapCanvas({ config, className = '' }: StarMapCanvasP
   }, []);
 
   useEffect(() => {
-    if (!celestial || !canvasRef.current) return;
+    if (!celestial || !canvasRef.current || !containerRef.current) return;
 
     const theme = COLOR_THEMES[config.colorTheme];
 
     // Calculate datetime from config
     const dateTime = new Date(`${config.date}T${config.time}:00`);
 
-    // Configure celestial display
-    const celestialConfig = {
-      width: 0, // Auto-size to container
+    // Use a small delay to ensure container has computed dimensions
+    const timeoutId = setTimeout(() => {
+      if (!canvasRef.current || !containerRef.current) return;
+
+      // Get container dimensions explicitly
+      const containerWidth = containerRef.current.offsetWidth;
+      const containerHeight = containerRef.current.offsetHeight;
+
+      // Ensure we have valid dimensions
+      if (containerWidth === 0 || containerHeight === 0) {
+        console.warn('Container has zero dimensions, skipping render');
+        return;
+      }
+
+      // Configure celestial display
+      const celestialConfig = {
+      width: Math.min(containerWidth, containerHeight), // Use explicit dimensions
       projection: 'airy',
       transform: 'equatorial',
       center: [config.location.lng, config.location.lat, 0],
@@ -121,26 +135,29 @@ export default function StarMapCanvas({ config, className = '' }: StarMapCanvasP
       },
     };
 
-    // Clear previous render
-    if (canvasRef.current) {
-      canvasRef.current.innerHTML = '';
-    }
+      // Clear previous render
+      if (canvasRef.current) {
+        canvasRef.current.innerHTML = '';
+      }
 
-    // Render celestial map
-    try {
-      celestial.display(celestialConfig);
+      // Render celestial map
+      try {
+        celestial.display(celestialConfig);
 
-      // Set the date/time
-      celestial.date(dateTime);
+        // Set the date/time
+        celestial.date(dateTime);
 
-      // Apply location
-      celestial.location([config.location.lat, config.location.lng]);
+        // Apply location
+        celestial.location([config.location.lat, config.location.lng]);
 
-      // Redraw
-      celestial.redraw();
-    } catch (error) {
-      console.error('Error rendering celestial map:', error);
-    }
+        // Redraw
+        celestial.redraw();
+      } catch (error) {
+        console.error('Error rendering celestial map:', error);
+      }
+    }, 100); // 100ms delay to allow DOM to settle
+
+    return () => clearTimeout(timeoutId);
   }, [celestial, config]);
 
   const theme = COLOR_THEMES[config.colorTheme];
