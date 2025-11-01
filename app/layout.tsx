@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "stars-map",
-  description: "A Next.js application with TypeScript and Tailwind CSS",
+  title: "Star Map - Capture Your Special Moment in the Stars",
+  description: "Create personalized star maps for weddings, anniversaries, birthdays and memorable occasions. Beautiful custom night sky prints that capture your special moment.",
 };
 
 export default function RootLayout({
