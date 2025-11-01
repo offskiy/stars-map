@@ -1,10 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [email, setEmail] = useState('');
+
+  // Generate star positions once on mount using useState lazy initializer
+  const [stars] = useState(() =>
+    Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      width: Math.random() * 3 + 1,
+      height: Math.random() * 3 + 1,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      animationDelay: Math.random() * 3,
+      animationDuration: Math.random() * 3 + 2,
+    }))
+  );
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,9 +35,9 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/" className="text-2xl font-bold text-[#0B132B] tracking-tight">
+              <Link href="/" className="text-2xl font-bold text-[#0B132B] tracking-tight">
                 ✨ Star Map
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
@@ -101,17 +115,17 @@ export default function Home() {
       <section className="relative bg-gradient-to-b from-[#0B132B] via-[#1a1f3a] to-[#0B132B] text-white pt-32 pb-20 overflow-hidden">
         {/* Starfield Background */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(50)].map((_, i) => (
+          {stars.map((star) => (
             <div
-              key={i}
+              key={star.id}
               className="star"
               style={{
-                width: `${Math.random() * 3 + 1}px`,
-                height: `${Math.random() * 3 + 1}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${Math.random() * 3 + 2}s`
+                width: `${star.width}px`,
+                height: `${star.height}px`,
+                left: `${star.left}%`,
+                top: `${star.top}%`,
+                animationDelay: `${star.animationDelay}s`,
+                animationDuration: `${star.animationDuration}s`
               }}
             />
           ))}
