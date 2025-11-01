@@ -61,9 +61,11 @@ export default function Home() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <button className="bg-[#FFC857] text-[#0B132B] px-6 py-2.5 rounded-full font-semibold hover:bg-[#FFD787] transition shadow-md">
-                Create your map
-              </button>
+              <Link href="/designer">
+                <button className="bg-[#FFC857] text-[#0B132B] px-6 py-2.5 rounded-full font-semibold hover:bg-[#FFD787] transition shadow-md">
+                  Create your map
+                </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -102,9 +104,11 @@ export default function Home() {
                 <a href="#contact" className="text-gray-700 hover:text-[#0B132B] transition" onClick={() => setMobileMenuOpen(false)}>
                   Contact
                 </a>
-                <button className="bg-[#FFC857] text-[#0B132B] px-6 py-2.5 rounded-full font-semibold hover:bg-[#FFD787] transition">
-                  Create your map
-                </button>
+                <Link href="/designer">
+                  <button className="bg-[#FFC857] text-[#0B132B] px-6 py-2.5 rounded-full font-semibold hover:bg-[#FFD787] transition">
+                    Create your map
+                  </button>
+                </Link>
               </div>
             </div>
           )}
@@ -141,9 +145,11 @@ export default function Home() {
                 Enter a date and location to generate a beautiful night‑sky map for any occasion
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <button className="bg-[#FFC857] text-[#0B132B] px-8 py-3.5 rounded-full font-bold text-lg hover:bg-[#FFD787] transition shadow-lg">
-                  Create your map
-                </button>
+                <Link href="/designer">
+                  <button className="bg-[#FFC857] text-[#0B132B] px-8 py-3.5 rounded-full font-bold text-lg hover:bg-[#FFD787] transition shadow-lg">
+                    Create your map
+                  </button>
+                </Link>
                 <button className="border-2 border-white text-white px-8 py-3.5 rounded-full font-semibold text-lg hover:bg-white/10 transition">
                   <a href="#gallery">See examples</a>
                 </button>
@@ -419,9 +425,11 @@ export default function Home() {
             Memorialize your special moment with a personalized map of the night sky
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#FFC857] text-[#0B132B] px-8 py-3.5 rounded-full font-bold text-lg hover:bg-[#FFD787] transition shadow-lg">
-              Create your map
-            </button>
+            <Link href="/designer">
+              <button className="bg-[#FFC857] text-[#0B132B] px-8 py-3.5 rounded-full font-bold text-lg hover:bg-[#FFD787] transition shadow-lg">
+                Create your map
+              </button>
+            </Link>
             <button className="border-2 border-white text-white px-8 py-3.5 rounded-full font-semibold text-lg hover:bg-white/10 transition">
               Contact us
             </button>
