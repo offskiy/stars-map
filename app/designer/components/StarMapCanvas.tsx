@@ -17,11 +17,18 @@ export default function StarMapCanvas({ config, className = '' }: StarMapCanvasP
 
   useEffect(() => {
     // Dynamically import d3-celestial (client-side only)
+    // d3-celestial doesn't have a default export - it attaches to window.Celestial
     const loadCelestial = async () => {
       try {
         setIsLoading(true);
-        const Celestial = (await import('d3-celestial')).default;
-        setCelestial(Celestial);
+        // Import as side effect to load the library
+        await import('d3-celestial');
+        // Access the global Celestial object
+        if (typeof window !== 'undefined' && (window as any).Celestial) {
+          setCelestial((window as any).Celestial);
+        } else {
+          console.error('Celestial library loaded but window.Celestial is not available');
+        }
       } catch (error) {
         console.error('Failed to load d3-celestial:', error);
       } finally {
@@ -65,7 +72,7 @@ export default function StarMapCanvas({ config, className = '' }: StarMapCanvasP
       form: false,
       location: true,
       container: canvasRef.current,
-      datapath: 'https://cdn.jsdelivr.net/npm/d3-celestial@0.7.24/data/',
+      datapath: 'https://cdn.jsdelivr.net/npm/d3-celestial@0.7.35/data/',
       stars: {
         colors: true,
         style: { fill: theme.fg, opacity: 0.8 },
