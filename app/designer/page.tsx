@@ -10,6 +10,7 @@ import MomentForm from './components/MomentForm';
 import DesignForm from './components/DesignForm';
 import TextForm from './components/TextForm';
 import SizeForm from './components/SizeForm';
+import Script from 'next/script';
 
 const STORAGE_KEY = 'starmap-designer-config';
 
@@ -151,6 +152,11 @@ export default function Designer() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Script src="/d3.min.js" strategy="beforeInteractive" />
+      <Script src="/d3.geo.projection.min.js" strategy="beforeInteractive" />
+      <Script src="/celestial.min.js" strategy="beforeInteractive" />
+
+
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

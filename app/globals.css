@@ -43,3 +43,8 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Hide Celestial form */
+#celestial-form {
+  display: none !important;
+}

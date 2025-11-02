@@ -2,11 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/stars-map',
+  basePath: process.env.NODE_ENV === "production" ? "/stars-map" : undefined,
   images: {
     unoptimized: true,
   },
-  transpilePackages: ['d3-celestial'],
 };
 
 export default nextConfig;
